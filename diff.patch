@@ -1,0 +1,172 @@
+--- ../Carstens2023_Reanalysis/ametsocV6.1.cls	2023-10-19 20:11:34
++++ ametsocV6.1.cls	2023-10-20 15:48:45
+@@ -603,25 +603,11 @@
+ 
+ \newdimen\bibindent
+ \setlength\bibindent{1.5em}
++
+ \newenvironment{thebibliography}[1]
+-     {\section*{\refname
+-        \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
+-      \list{\@biblabel{\@arabic\c@enumiv}}%
+-           {\settowidth\labelwidth{\@biblabel{#1}}%
+-            \leftmargin\labelwidth
+-            \advance\leftmargin\labelsep
+-            \@openbib@code
+-            \usecounter{enumiv}%
+-            \let\p@enumiv\@empty
+-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+-      \sloppy
+-      \clubpenalty4000
+-      \@clubpenalty \clubpenalty
+-      \widowpenalty4000%
+-      \sfcode`\.\@m}
+-     {\def\@noitemerr
+-       {\@latex@warning{Empty `thebibliography' environment}}%
+-      \endlist}
++     {}% Begin code is empty
++     {}% End code is empty
++
+ \newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
+ \let\@openbib@code\@empty
+ 
+@@ -668,6 +654,7 @@
+ \usepackage{epstopdf}
+ \usepackage[scaled=.97]{helvet} %% to get bold helvetica
+ \usepackage{fancyhdr}
++\usepackage{bibentry}
+ \usepackage{natbib}
+ \def\bibfont{\ifdraft\normalsize\else\footnotesize\fi}
+ \usepackage{url}
+@@ -681,11 +668,16 @@
+ %\usepackage{cuted}
+ \usepackage{setspace}
+ 
++\usepackage{comment}
++\excludecomment{figure}
++\let\endfigure\relax
+ 
++
+ %% Start line numbers immediately if in draft mode
+ \ifdraft
+ \usepackage{lineno}
+-\linenumbers
++%CMZ
++%\linenumbers
+ \fi
+ 
+ 
+@@ -715,14 +707,14 @@
+ 
+ \def\abstract#1{\def\theabstract{%
+ \centerline{\vtop{\ifdraft\normalsize\else \bigfootnotesize\fi\linewidth 5.25cm
+-\ifdraft\internallinenumbers\fi
++\ifdraft\fi
+ \noindent{ABSTRACT:}\;\;\relax #1\vskip1sp}}}}
+ 
+ \let\dothanks\relax
+ 
+ 
+ \def\correspondingauthor#1{%
+-\thanks{\ifdraft\internallinenumbers\normalsize\fi
++\thanks{\ifdraft\normalsize\fi
+  \noindent{{\it Corresponding author}:}\ #1
+ %  \vskip1pt
+ %  \noindent\theemail
+@@ -884,48 +876,8 @@
+ 
+ %% Allows switches for draft/twocol mode
+ \def\@maketitle{%
+-\vglue61pt
+-  \begin{center}%
+-\ifdraft
+-\def\thanks##1{\global\advance\thanksnum by 1
+-\expandafter\gdef\csname thanks\the\thanksnum\endcsname{##1}}
+-\fi%
+-    {
+-\vglue-4pt
+-\ifdraft\Large\else\large\fi\bf \thetitle \par}% 
+-    \vskip 12pt
+-        {\normalsize\ifdraft\rm\else\sc\fi\theauthors%
++
+ }
+-    \vskip 6pt
+-{\bigfootnotesize\it
+-\ifdraft\internallinenumbers\normalsize\fi
+-\theaffiliation
+-\ifdraft\normalsize\fi
+-%%
+-%{\normalsize
+-%\extraloop
+-%}\vskip5pt
+-%\fi
+-%%
+-\vskip14pt
+-\rm
+-\ifx\thereceived\empty\else
+-(\thereceived)
+-\vskip9pt
+-\fi
+-}
+-\end{center}
+-\ifdraft
+-\vfill
+-\thanksloop
+-\dothanks
+-\eject\fi
+-%\centerline{\ifdraft\normalsize\else\bigfootnotesize\fi\sc ABSTRACT}
+-%\vskip7pt
+-\theabstract
+-\vskip17pt
+-\ifdraft\newpage\fi
+-}
+ 
+ 
+ \advance\voffset-36pt
+@@ -1016,7 +968,7 @@
+   \ifdim \wd\@tempboxa >\hsize
+ %%
+ \global\setbox0\vbox{
+-\ifdraft\normaltextsize\internallinenumbers\baselineskip=20pt\else \footnotesize\fi
++\ifdraft\normaltextsize\baselineskip=20pt\else \footnotesize\fi
+ #1. #2
+ }
+ \ifdim\ht0<24pt
+@@ -1028,7 +980,7 @@
+ \par
+ \else
+ \ifdraft\normaltextsize\else\footnotesize\fi
+-\ifdraft\internallinenumbers\baselineskip=20pt\fi
++\ifdraft\baselineskip=20pt\fi
+ \hskip10pt #1. #2\par
+ \fi
+   \else
+@@ -1048,8 +1000,8 @@
+ 
+ \def\datastatement{\paragraph*{Data availability statement.}}
+ 
+-\def\capsule{\paragraph*{\rm CAPSULE:}}
+-\def\statement{\paragraph*{\rm SIGNIFICANCE STATEMENT:}}
++%\def\capsule{\paragraph*{\rm CAPSULE:}}
++\def\statement{}
+ 
+ %% tables, to make correct space around the horizontal lines at the
+ %% top, underneath the column headers, and at the bottom of the table.
+@@ -1063,7 +1015,7 @@
+ 
+ \def\sidebyside#1#2{\hbox to\textwidth{%
+ \vbox{\hsize=.5\textwidth\advance\hsize -6pt #1}\hfill
+-\vbox{\let\internallinenumbers\relax\hsize=.5\textwidth\advance\hsize -6pt #2}}}
++\vbox{\let\relax\hsize=.5\textwidth\advance\hsize -6pt #2}}}
+ 
+ %% Make tabular default fontsize be footnotesize.
+ \let\savetabular\tabular
+@@ -1100,7 +1052,7 @@
+ \def\thanks#1{
+     \protected@xdef\@thanks{\@thanks
+         \protect\footnotetext[\the\c@footnote]{%
+-\ifdraft\noexpand\internallinenumbers\fi#1}}%
++\ifdraft\noexpand\fi#1}}%
+ }
+ 
+ %% Wider space between dots than standard \dotfill
