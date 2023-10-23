@@ -1,7 +1,7 @@
 import sys
+import re
 from selenium import webdriver
 from bs4 import BeautifulSoup
-import re
 
 def main():
     # Check if a filename has been provided
