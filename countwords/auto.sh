@@ -2,7 +2,7 @@
 
 set -e
 
-TEXFILE=TCAsymmetry
+TEXFILE=$1
 
 # Use sed to delete the line containing '\statement' and the next line
 gsed -i '/\\statement/{N; d;}' "$TEXFILE.tex"

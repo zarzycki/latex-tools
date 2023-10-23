@@ -11,7 +11,7 @@ conda activate wordcount
 2. Create environment that includes bs4 and selenium (see above).
 3. Copy all files from this repo into `$TEXDIR`.
 4. Go into `$TEXDIR` and `chmod +x ./auto.sh`
-5. Run `./auto.sh` from `$TEXDIR`.
+5. Run `./auto.sh $FILEBASE` from `$TEXDIR` where `$FILEBASE` is the name of the template file *without* the *.tex extension. Ex: `$> ./auto.sh template` if your TeX file is named `template.tex`.
 
 Should eventually give:
 
