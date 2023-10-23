@@ -14,6 +14,8 @@ htlatex ${TEXFILE}
 htlatex ${TEXFILE}
 echo "DONE"
 
-npm init -y
-npm install puppeteer
-node countwords.js ${TEXFILE}.html
+#npm init -y
+#npm install puppeteer
+#node countwords.js ${TEXFILE}.html
+
+python countWords.py ${PWD}/${TEXFILE}.html
